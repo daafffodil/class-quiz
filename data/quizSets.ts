@@ -2,74 +2,58 @@ import { QuizSet } from '@/types/quiz';
 
 export const quizSets: QuizSet[] = [
   {
-    id: 'yin-meaning',
-    title: 'Verb “引” Meaning Practice',
-    description: 'Practice understanding the contextual meaning of 引 in classical texts.',
+    id: 'xiang-yu-yan-zhi',
+    title: '《项羽本纪》语义辨析',
+    description: '结合史传语境，训练词义与句意理解。',
     questions: [
       {
-        id: 'yin-1',
-        context: '东汉·班固《汉书》：于是延广引过归己，上甚贤之。',
-        question: "What is the meaning of '引' in this sentence?",
-        options: ['to draw a bow', 'to quote', 'to cause', 'to take responsibility'],
-        correctIndex: 3,
-        explanation:
-          "The phrase '引过归己' means drawing fault toward oneself, which implies taking responsibility.",
-        tags: ['vocabulary', 'han-dynasty']
-      },
-      {
-        id: 'yin-2',
-        context: '《史记》：引兵而东，至于河上。',
-        question: "What does '引' most likely mean here?",
-        options: ['to lead', 'to hide', 'to recall', 'to criticize'],
-        correctIndex: 0,
-        explanation: "'引兵' means to lead troops, so 引 here means to lead.",
-        tags: ['military']
-      },
-      {
-        id: 'yin-3',
-        context: '《后汉书》：引咎自责，不敢推于人。',
-        question: "What is the best interpretation of '引咎'?",
-        options: ['to avoid blame', 'to accept blame', 'to distribute blame', 'to discuss faults'],
+        id: 'xy-1',
+        context: '沛公军霸上，未得与项羽相见。',
+        question: '句中“军”字最恰当的解释是：',
+        options: ['军队', '驻扎', '战争', '将领'],
         correctIndex: 1,
-        explanation: "'引咎' means taking blame upon oneself, showing self-reflection and responsibility."
+        explanation: '“军霸上”是“驻军于霸上”之意，“军”在此作动词，表示驻扎。',
+        tags: ['词类活用', '史记']
+      },
+      {
+        id: 'xy-2',
+        context: '项伯乃夜驰之沛公军，私见张良，具告以事。',
+        question: '“具告以事”中的“具”意思是：',
+        options: ['具体', '准备', '全都、详尽', '器具'],
+        correctIndex: 2,
+        explanation: '“具告”常见于文言，意为“详细地告诉”。'
+      },
+      {
+        id: 'xy-3',
+        context: '范增数目项王，举所佩玉玦以示之者三。',
+        question: '“数目项王”中的“数目”应理解为：',
+        options: ['多次用眼神示意', '统计人数', '公开责备', '认真端详'],
+        correctIndex: 0,
+        explanation: '“目”在此作动词，表示“以目示意”；“数”表示多次。'
       }
     ]
   },
   {
-    id: 'historical-texts',
-    title: 'Historical Text Practice',
-    description: 'Short context-based questions from classical historical records.',
+    id: 'lun-yu-jing-du',
+    title: '《论语》课堂精读',
+    description: '围绕常见考核句，强化语境与主旨判断。',
     questions: [
       {
-        id: 'hist-1',
-        context: '《资治通鉴》：臣闻兼听则明，偏信则暗。',
-        question: 'What is the core idea of this sentence?',
-        options: [
-          'Listening broadly brings clarity; trusting one side brings blindness.',
-          'Power should be centralized in one minister.',
-          'A ruler should not listen to advice.',
-          'Clarity depends only on military strength.'
-        ],
-        correctIndex: 0,
-        explanation:
-          'The sentence contrasts broad listening with one-sided belief, emphasizing balanced governance.'
+        id: 'ly-1',
+        context: '子曰：“学而不思则罔，思而不学则殆。”',
+        question: '这句话主要强调：',
+        options: ['学习比思考更重要', '思考比学习更重要', '学习与思考应相互结合', '学习应完全依赖老师'],
+        correctIndex: 2,
+        explanation: '孔子强调“学”与“思”不可偏废，必须并进。'
       },
       {
-        id: 'hist-2',
-        context: '《左传》：多行不义必自毙。',
-        question: 'What does this sentence warn about?',
-        options: [
-          'Ritual is always more important than law.',
-          'Unjust acts will eventually lead to self-destruction.',
-          'Only the strong survive in politics.',
-          'Fate cannot be changed by behavior.'
-        ],
+        id: 'ly-2',
+        context: '子曰：“温故而知新，可以为师矣。”',
+        question: '“温故而知新”最贴切的解释是：',
+        options: ['只需复习旧知识', '复习旧知并获得新体会', '每天学习新内容即可', '背诵越多越好'],
         correctIndex: 1,
-        explanation:
-          'It states that repeated unjust behavior eventually causes one’s own downfall.'
+        explanation: '“温故”与“知新”并提，强调在复习中生发新的理解。'
       }
     ]
   }
 ];
-
-export const getQuizSetById = (id: string) => quizSets.find((set) => set.id === id);

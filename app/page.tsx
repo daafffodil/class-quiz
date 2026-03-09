@@ -1,27 +1,36 @@
 import Link from 'next/link';
 import { quizSets } from '@/data/quizSets';
+import { PageContainer } from '@/components/shared/PageContainer';
+import { SectionCard } from '@/components/shared/SectionCard';
 
 export default function HomePage() {
   return (
-    <main className="page">
-      <h1>Classical Chinese Quiz</h1>
-      <p className="muted">Choose a quiz set to begin practicing context-based interpretation.</p>
+    <PageContainer>
+      <SectionCard>
+        <h1>文言文课堂测验工具</h1>
+        <p className="muted">一题一练、即时反馈，适用于课堂投影练习与 DSE 风格备考。</p>
+      </SectionCard>
 
-      <h2>Quiz Sets</h2>
-      <div className="grid" style={{ marginBottom: 20 }}>
+      <section className="home-grid">
         {quizSets.map((set) => (
-          <Link key={set.id} href={`/quiz/${set.id}`} className="card" style={{ display: 'block' }}>
-            <h3 style={{ marginTop: 0 }}>{set.title}</h3>
-            <p className="muted" style={{ marginBottom: 0 }}>
-              {set.description}
-            </p>
+          <Link key={set.id} href={`/quiz/${set.id}`} className="section-card set-link">
+            <h3>{set.title}</h3>
+            <p className="muted">{set.description}</p>
+            <span className="link-arrow">开始作答 →</span>
           </Link>
         ))}
-      </div>
+      </section>
 
-      <Link href="/admin" className="btn">
-        Admin
-      </Link>
-    </main>
+      <section className="entry-row">
+        <Link href="/experimental" className="section-card entry-link">
+          <h3>实验模式</h3>
+          <p className="muted">进入次要演示版本（English Demo）。</p>
+        </Link>
+        <Link href="/admin" className="section-card entry-link">
+          <h3>管理后台</h3>
+          <p className="muted">查看后台功能规划（占位页）。</p>
+        </Link>
+      </section>
+    </PageContainer>
   );
 }
