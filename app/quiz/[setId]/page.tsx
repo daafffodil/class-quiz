@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { getQuizSetById } from '@/lib/quiz';
-import { QuizCard } from '@/components/quiz/QuizCard';
+import { QuizMainCard } from '@/components/quiz/QuizMainCard';
 import { ProgressPanel } from '@/components/quiz/ProgressPanel';
 import { PageContainer } from '@/components/shared/PageContainer';
 import { EmptyState } from '@/components/shared/EmptyState';
@@ -74,10 +74,13 @@ export default function QuizPage() {
   return (
     <PageContainer>
       <div className="quiz-header">
-        <h1>{quizSet.title}</h1>
+        <div>
+          <p className="card-eyebrow">课堂练习</p>
+          <h1>{quizSet.title}</h1>
+        </div>
         <ProgressPanel current={currentIndex + 1} total={quizSet.questions.length} correct={correctCount} wrong={wrongCount} />
       </div>
-      <QuizCard question={currentQuestion} selectedIndex={selectedIndex} onAnswer={handleAnswer} onNext={goNext} />
+      <QuizMainCard question={currentQuestion} selectedIndex={selectedIndex} onAnswer={handleAnswer} onNext={goNext} />
     </PageContainer>
   );
 }
