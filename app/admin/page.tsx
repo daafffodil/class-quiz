@@ -1,20 +1,16 @@
 import Link from 'next/link';
+import { PageContainer } from '@/components/shared/PageContainer';
+import { SectionCard } from '@/components/shared/SectionCard';
 
 export default function AdminPage() {
   return (
-    <main className="page">
-      <div className="card">
-        <h1>Admin system coming soon.</h1>
-        <p className="muted">Future features may include:</p>
-        <ul>
-          <li>Question bank upload</li>
-          <li>Quiz set management</li>
-          <li>Classroom statistics</li>
-        </ul>
-        <Link href="/" className="btn btn-primary">
-          Back to Home
-        </Link>
-      </div>
-    </main>
+    <PageContainer>
+      <SectionCard>
+        <h1>管理后台</h1>
+        <p>后台功能开发中。</p>
+        <p className="muted">未来将支持题库上传与管理。</p>
+        <Link href="/" className="btn btn-primary">返回首页</Link>
+      </SectionCard>
+    </PageContainer>
   );
 }

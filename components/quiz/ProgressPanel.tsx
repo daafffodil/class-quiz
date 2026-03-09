@@ -7,12 +7,10 @@ type ProgressPanelProps = {
 
 export function ProgressPanel({ current, total, correct, wrong }: ProgressPanelProps) {
   return (
-    <div className="card stats">
-      <div>
-        Question {current} / {total}
-      </div>
-      <div>Correct: {correct}</div>
-      <div>Wrong: {wrong}</div>
-    </div>
+    <aside className="progress-panel">
+      <p>第 {current} / {total} 题</p>
+      <p>正确：{correct}</p>
+      <p>错误：{wrong}</p>
+    </aside>
   );
 }

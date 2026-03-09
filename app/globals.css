@@ -8,9 +8,9 @@
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f7f7fb;
-  color: #222;
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', Arial, sans-serif;
+  background: radial-gradient(circle at top, #f9fbff 0%, #f2f5ff 35%, #eef2ff 100%);
+  color: #152033;
 }
 
 a {
@@ -18,87 +18,189 @@ a {
   text-decoration: none;
 }
 
-.page {
-  max-width: 900px;
+.page-container {
+  max-width: 980px;
   margin: 0 auto;
-  padding: 24px 16px 48px;
+  padding: 28px 16px 60px;
+  display: grid;
+  gap: 18px;
 }
 
-.card {
-  background: white;
-  border: 1px solid #e6e7ee;
+.section-card {
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid #dbe3ff;
+  box-shadow: 0 12px 32px rgba(33, 61, 137, 0.08);
+  padding: 22px;
+}
+
+.home-grid,
+.entry-row {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.set-link,
+.entry-link {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.set-link:hover,
+.entry-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(42, 79, 189, 0.14);
+}
+
+.link-arrow {
+  display: inline-block;
+  margin-top: 10px;
+  color: #355cd8;
+  font-weight: 700;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.progress-panel {
+  min-width: 170px;
+  background: linear-gradient(160deg, #edf2ff, #f8faff);
+  border: 1px solid #cad8ff;
+  border-radius: 14px;
+  padding: 12px 14px;
+  line-height: 1.7;
+  font-weight: 600;
+}
+
+.quiz-card {
+  display: grid;
+  gap: 14px;
+}
+
+.quiz-block {
+  display: grid;
+  gap: 6px;
+}
+
+.block-label {
+  margin: 0;
+  color: #4f5d7c;
+  font-weight: 700;
+}
+
+.context-text {
+  margin: 0;
+  line-height: 1.8;
+  background: #f8faff;
+  border: 1px solid #e4ebff;
+  padding: 12px;
   border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
 }
 
-.grid {
+.question-text {
+  margin: 0;
+}
+
+.options-wrap {
+  display: grid;
+  gap: 10px;
+}
+
+.option-button {
+  border: 1px solid #cfd8f8;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+  background: #fff;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  font-size: 16px;
+}
+
+.option-button:hover {
+  border-color: #5c79d9;
+}
+
+.option-label {
+  font-weight: 700;
+  color: #3656bd;
+}
+
+.option-correct {
+  border-color: #22a447;
+  background: #eefcf2;
+}
+
+.option-wrong {
+  border-color: #df3f3f;
+  background: #fff2f2;
+}
+
+.answer-footer {
   display: grid;
   gap: 12px;
 }
 
+.explanation-box {
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.exp-correct {
+  border: 1px solid #3dac61;
+  background: #f0fbf4;
+}
+
+.exp-wrong {
+  border: 1px solid #dc5959;
+  background: #fff4f4;
+}
+
+.feedback-title {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.feedback-correct {
+  margin: 0 0 8px;
+  color: #b51b1b;
+  font-weight: 700;
+}
+
+.result-card p {
+  margin: 8px 0;
+}
+
+.result-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .btn {
-  border: 1px solid #ccd0dd;
+  border: 1px solid #bcc8ee;
   border-radius: 10px;
   background: #fff;
+  color: #1a2c55;
+  padding: 10px 14px;
   cursor: pointer;
-  padding: 10px 12px;
   font-size: 15px;
 }
 
-.btn:hover {
-  border-color: #9097b0;
-}
-
 .btn-primary {
-  background: #2f5bff;
+  background: linear-gradient(180deg, #3d68f5, #2d53cf);
+  border-color: #2d53cf;
   color: #fff;
-  border-color: #2f5bff;
-}
-
-.option {
-  text-align: left;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.option.correct {
-  background: #edfbee;
-  border-color: #2f9e44;
-}
-
-.option.wrong {
-  background: #fff1f0;
-  border-color: #e03131;
 }
 
 .muted {
-  color: #5a6072;
-}
-
-.confetti {
-  position: absolute;
-  right: 8px;
-  top: -14px;
-  font-size: 18px;
-  animation: pop 500ms ease-out;
-}
-
-@keyframes pop {
-  0% {
-    transform: scale(0.2) translateY(8px);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1) translateY(-4px);
-    opacity: 1;
-  }
-}
-
-.stats {
-  font-size: 14px;
-  line-height: 1.5;
-  text-align: right;
+  color: #5b6783;
 }

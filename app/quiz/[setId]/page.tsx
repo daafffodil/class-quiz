@@ -2,15 +2,16 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { getQuizSetById } from '@/data/quizSets';
-import { QuizCard } from '@/components/QuizCard';
-import { ProgressPanel } from '@/components/ProgressPanel';
+import { getQuizSetById } from '@/lib/quiz';
+import { QuizCard } from '@/components/quiz/QuizCard';
+import { ProgressPanel } from '@/components/quiz/ProgressPanel';
+import { PageContainer } from '@/components/shared/PageContainer';
+import { EmptyState } from '@/components/shared/EmptyState';
 
 export default function QuizPage() {
-  const params = useParams<{ setId: string }>();
+  const { setId } = useParams<{ setId: string }>();
   const router = useRouter();
-  const quizSet = useMemo(() => getQuizSetById(params.setId), [params.setId]);
+  const quizSet = useMemo(() => getQuizSetById(setId), [setId]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -18,44 +19,46 @@ export default function QuizPage() {
   const [wrongCount, setWrongCount] = useState(0);
 
   const currentQuestion = quizSet?.questions[currentIndex];
+  const isCorrect = selectedIndex !== null && selectedIndex === currentQuestion?.correctIndex;
 
   useEffect(() => {
-    if (selectedIndex === null || !quizSet || !currentQuestion) {
-      return;
-    }
+    if (!quizSet || selectedIndex === null || !isCorrect) return;
 
     const timer = window.setTimeout(() => {
-      const isLast = currentIndex === quizSet.questions.length - 1;
-      if (isLast) {
-        router.push(
-          `/quiz/${quizSet.id}/result?total=${quizSet.questions.length}&correct=${correctCount}&wrong=${wrongCount}`
-        );
+      const nextIndex = currentIndex + 1;
+      if (nextIndex >= quizSet.questions.length) {
+        router.push(`/result/${quizSet.id}?total=${quizSet.questions.length}&correct=${correctCount}&wrong=${wrongCount}`);
         return;
       }
 
-      setCurrentIndex((prev) => prev + 1);
+      setCurrentIndex(nextIndex);
       setSelectedIndex(null);
-    }, 2000);
+    }, 1000);
 
     return () => window.clearTimeout(timer);
-  }, [selectedIndex, quizSet, currentQuestion, currentIndex, router, correctCount, wrongCount]);
+  }, [selectedIndex, isCorrect, currentIndex, quizSet, router, correctCount, wrongCount]);
 
   if (!quizSet) {
     return (
-      <main className="page">
-        <div className="card">
-          <h1>Quiz set not found.</h1>
-          <Link href="/" className="btn btn-primary">
-            Back to Home
-          </Link>
-        </div>
-      </main>
+      <PageContainer>
+        <EmptyState title="未找到题组" description="请返回首页重新选择测验。" />
+      </PageContainer>
     );
   }
 
   if (!currentQuestion) {
     return null;
   }
+
+  const goNext = () => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex >= quizSet.questions.length) {
+      router.push(`/result/${quizSet.id}?total=${quizSet.questions.length}&correct=${correctCount}&wrong=${wrongCount}`);
+      return;
+    }
+    setCurrentIndex(nextIndex);
+    setSelectedIndex(null);
+  };
 
   const handleAnswer = (index: number) => {
     if (selectedIndex !== null) return;
@@ -69,25 +72,12 @@ export default function QuizPage() {
   };
 
   return (
-    <main className="page">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
-        <h1 style={{ marginTop: 0 }}>{quizSet.title}</h1>
-        <ProgressPanel
-          current={currentIndex + 1}
-          total={quizSet.questions.length}
-          correct={correctCount}
-          wrong={wrongCount}
-        />
+    <PageContainer>
+      <div className="quiz-header">
+        <h1>{quizSet.title}</h1>
+        <ProgressPanel current={currentIndex + 1} total={quizSet.questions.length} correct={correctCount} wrong={wrongCount} />
       </div>
-
-      <QuizCard
-        question={currentQuestion}
-        selectedIndex={selectedIndex}
-        onAnswer={handleAnswer}
-        showConfetti={
-          selectedIndex !== null && selectedIndex === currentQuestion.correctIndex
-        }
-      />
-    </main>
+      <QuizCard question={currentQuestion} selectedIndex={selectedIndex} onAnswer={handleAnswer} onNext={goNext} />
+    </PageContainer>
   );
 }
